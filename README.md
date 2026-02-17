@@ -82,6 +82,12 @@ Se realizaron diferentes experimentos variando:
 - Un número excesivo de épocas puede llevar a sobreajuste.
 - Un conjunto de datos equilibrado contribuye a una precisión de validación estable.
 
+Este programa puede modificarse para obtener los datos directamente desde Kaggle en lugar de almacenarlos localmente. Para ello, es posible utilizar el dataset en línea mediante la Kaggle API oficial, la cual permite descargar y gestionar datasets directamente desde la PC.
+
+La Kaggle API proporciona un mecanismo de autenticación mediante un archivo kaggle.json, que se obtiene desde la configuración de la cuenta en Kaggle. Una vez configurada, el programa puede automatizar la descarga del dataset antes de ejecutar el entrenamiento del modelo, evitando así la necesidad de mantener los datos manualmente en el equipo local.
+
+De esta manera, el proyecto se vuelve más portable, reproducible y profesional, ya que cualquier persona puede ejecutar el código y descargar automáticamente el dataset desde Kaggle sin depender de archivos locales preexistentes.
+
 # Cómo Ejecutar
 
 ```bash
