@@ -1,100 +1,88 @@
 # deep-learning-lego-image-classification
 Clasificación de piezas LEGO mediante CNN con análisis comparativo de técnicas de preprocesamiento usando TensorFlow y OpenCV.
 
-# 🧠 CNN LEGO Classification – Computer Vision Project
+# Clasificación de LEGO con CNN – Proyecto de Visión por Computadora
 
-Deep Learning project focused on image classification of LEGO pieces using Convolutional Neural Networks (CNN) and advanced image preprocessing techniques.
+Proyecto de Deep Learning enfocado en la clasificación de imágenes de piezas de LEGO utilizando Redes Neuronales Convolucionales (CNN) y técnicas avanzadas de preprocesamiento de imágenes.
 
-## 📌 Project Overview
+# Resumen del Proyecto
 
-This project implements and evaluates different preprocessing pipelines and CNN architectures for image classification using the **B200C LEGO Classification Dataset** (Kaggle).
+Este proyecto implementa y evalúa diferentes pipelines de preprocesamiento y arquitecturas CNN para la clasificación de imágenes utilizando el Conjunto de Datos de Clasificación LEGO B200C (Kaggle).
 
-The main objective is to analyze how image enhancement techniques affect model performance and generalization.
+El objetivo principal es analizar cómo las técnicas de mejora de imágenes afectan el rendimiento y la generalización del modelo.
 
----
+# Conjunto de Datos
 
-## 🗂 Dataset
+- Conjunto de Datos: Conjunto de Datos de Clasificación LEGO B200C
+- Clases utilizadas: 4 categorías seleccionadas de piezas LEGO
+- Imágenes por clase: 4000
+- Tamaño de imagen: 64x64 (redimensionadas a 32x32 para los experimentos)
+- Formato: RGB (.jpg)
+- Conjunto de datos equilibrado
 
-- **Dataset:** B200C LEGO Classification Dataset
-- **Classes used:** 4 selected LEGO piece categories
-- **Images per class:** 4000
-- **Image size:** 64x64 (resized to 32x32 for experiments)
-- **Format:** RGB (.jpg)
-- **Balanced dataset**
+# Técnicas de Preprocesamiento Evaluadas
 
----
+Se implementaron y compararon dos flujos de preprocesamiento:
 
-## ⚙️ Preprocessing Techniques Evaluated
+# Método 1 – Desenfoque + Detección de Bordes Canny
+- Normalización
+- Desenfoque Gaussiano (3x3)
+- Conversión a escala de grises
+- Detección de bordes Canny
+- Fusión de bordes con la imagen original
+- Redimensionar a 32x32
 
-Two preprocessing pipelines were implemented and compared:
+# Método 2 – Gaussiano + Otsu + Contornos
+- Conversión a escala de grises
+- Desenfoque gaussiano (5x5)
+- Umbralización de Otsu
+- Detección de contornos
+- Contorno más grande dibujado sobre la imagen original
+- Redimensionar a 32x32
 
-### 🔹 Method 1 – Blur + Canny Edge Detection
-- Normalization
-- Gaussian Blur (3x3)
-- Grayscale conversion
-- Canny edge detection
-- Edge fusion with original image
-- Resize to 32x32
+# Arquitectura CNN
 
-### 🔹 Method 2 – Gaussian + Otsu + Contours
-- Grayscale conversion
-- Gaussian Blur (5x5)
-- Otsu thresholding
-- Contour detection
-- Largest contour drawn over original image
-- Resize to 32x32
+El modelo CNN implementado consiste en:
 
----
-
-## 🏗 CNN Architecture
-
-The implemented CNN model consists of:
-
-- Conv2D (32 filters, 3x3, ReLU)
+- Conv2D (32 filtros, 3x3, ReLU)
 - MaxPooling (2x2)
-- Conv2D (64 filters, 3x3, ReLU)
+- Conv2D (64 filtros, 3x3, ReLU)
 - MaxPooling (2x2)
 - Dropout (0.5)
-- Flatten
-- Dense (400 neurons, ReLU)
-- Dense (4 neurons, Softmax)
+- Aplanar
+- Densa (400 neuronas, ReLU)
+- Densa (4 neuronas, Softmax)
 
-Optimizer: Adam  
-Loss Function: Categorical Crossentropy  
-Metric: Accuracy  
+Optimizador: Adam
+Función de Pérdida: Entropía Cruzada Categórica
+Métrica: Precisión  
 
----
+# Resultados Experimentales
 
-## 📊 Experimental Results
+Se realizaron diferentes experimentos variando:
 
-Different experiments were performed varying:
+- Número de clases
+- Número de imágenes
+- Tamaño de la imagen (32x32 / 64x64)
+- Épocas
+- Técnica de preprocesamiento
 
-- Number of classes
-- Number of images
-- Image size (32x32 / 64x64)
-- Epochs
-- Preprocessing technique
+# Mejor Modelo Equilibrado
+- Tamaño de imagen: 32x32
+- Épocas: 13
+- Preprocesamiento: Gaussiano + Otsu + Contornos
+- Precisión en entrenamiento: ~86%
+- Precisión en validación: ~85%
+- Menor sobreajuste en comparación con el modelo base
 
-### 🔥 Best Balanced Model
-- Image size: 32x32
-- Epochs: 13
-- Preprocessing: Gaussian + Otsu + Contours
-- Training Accuracy: ~86%
-- Validation Accuracy: ~85%
-- Reduced overfitting compared to baseline
+# Principales Hallazgos
 
----
+- Las técnicas de preprocesamiento afectan significativamente la generalización del modelo.
+- El realce basado en bordes mejora la extracción de características pero puede aumentar el tiempo de entrenamiento.
+- Un número excesivo de épocas puede llevar a sobreajuste.
+- Un conjunto de datos equilibrado contribuye a una precisión de validación estable.
 
-## 📈 Key Findings
-
-- Preprocessing techniques significantly affect model generalization.
-- Edge-based enhancement improves feature extraction but may increase training time.
-- Excessive epochs can lead to overfitting.
-- Balanced dataset contributes to stable validation accuracy.
-
----
-
-## 🚀 How to Run
+# Cómo Ejecutar
 
 ```bash
 python main.py -p "path_to_dataset"
